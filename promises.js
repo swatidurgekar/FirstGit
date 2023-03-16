@@ -1,45 +1,37 @@
 let posts=['POST1']
+const Post=async()=>{
 
-function updateLastUserActivityTime(){
-    return new Promise((resolve,reject)=>{
-        setTimeout(() => {
-            const updatedTime=new Date;
-            resolve(updatedTime);
-        },1000);
-    })
-}
-
-function createPost(post){
-    return new Promise((resolve,reject)=>{
-        setTimeout(()=>{
-            posts.push(post);
-            resolve(posts)
-        },1000)
-    })
-}
-
-function deletePost(){
-    return new Promise((resolve,reject)=>{
-        setTimeout(()=>{
-            posts.pop();
-            resolve(posts)
-        },1000)
-    })
-}
-
-console.log(`Before creating post ${new Date}`)
-createPost('POST2')
-.then((arr)=>{
-    console.log(`After creating post ${arr}`);
+console.log(`Before creating posts ${new Date}`);
+const updateUserActivityTime=await new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+        let updatedTime=new Date
+        resolve(updatedTime)
+    },1000)
 })
-.then(()=>{
-    updateLastUserActivityTime().then((time)=>{
-        console.log(`user last activity time ${time}`);
-    })
-    .then(()=>{
-        deletePost()
-        .then((afterwards)=>{
-            console.log(`New set of posts of the user ${afterwards}`)
-        })
-    })
+
+const createPost=(post)=>new Promise((resolve,reject)=>{
+  setTimeout(() => {
+    posts.push(post);
+    newPosts=posts;
+    resolve(newPosts);
+  }, 3000);
 })
+
+
+
+const deletePost=new Promise((resolve,reject)=>{
+setTimeout(()=>{
+posts.pop();
+resolve(posts);
+},4000)
+})
+let wait=await createPost('POST2');
+
+console.log(`After creating posts ${wait}`);
+
+
+let[updatedTimer,deletedPost] =await Promise.all([updateUserActivityTime,deletePost]) 
+console.log(`Last active on ${updatedTimer}`);
+console.log(`New posts of the user ${deletedPost}`);
+}
+Post()
