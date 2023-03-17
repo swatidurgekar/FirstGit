@@ -1,16 +1,16 @@
 //AXIOS GLOBALS
-//axios.defaults.headers.common['X-Auth-Token']='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+axios.defaults.headers.common['X-Auth-Token']='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
 
 function getTodos() {
-//   axios({
-//     method:'get',
-//     url:'https://jsonplaceholder.typicode.com/todos',
-//     params:{
-//         _limit:5
-//     }
-//   })
-//   .then(res=>showOutput(res))
-//   .catch(err=>console.log(err))
+  axios({
+    method:'get',
+    url:'https://jsonplaceholder.typicode.com/todos',
+    params:{
+        _limit:5
+    }
+  })
+  .then(res=>showOutput(res))
+  .catch(err=>console.log(err))
 
 axios
 .get('https://jsonplaceholder.typicode.com/todos?_limit=5',{timeout:5000})
@@ -117,37 +117,37 @@ function errorHandling() {
 }
 
 // CANCEL TOKEN
-// function cancelToken() {
-//     const source=axios.CancelToken.source();
-//   axios.get('https://jsonplaceholder.typicode.com/todos',{
-//     cancelToken:source.token
-//   })
-//   .then(res=>showOutput(res))
-//   .catch(thrown=>{
-//     if(axios.isCancel(thrown)){
-//         console.log('request cancelled',thrown.message); 
-//     }
-//   });
-//   if(true){
-//     source.cancel('request cancel')
-//   }
-// }
+function cancelToken() {
+    const source=axios.CancelToken.source();
+  axios.get('https://jsonplaceholder.typicode.com/todos',{
+    cancelToken:source.token
+  })
+  .then(res=>showOutput(res))
+  .catch(thrown=>{
+    if(axios.isCancel(thrown)){
+        console.log('request cancelled',thrown.message); 
+    }
+  });
+  if(true){
+    source.cancel('request cancel')
+  }
+}
 // INTERCEPTING REQUESTS & RESPONSES
-// axios.interceptors.request.use(config=>{
-//     console.log(`${config.method.toUpperCase()} 
-//     request sent to ${config.url} at ${new Date().
-//         getTime()}`);
-// return config;
-// },
-// error=>{
-//     return Promise.reject(error)
-// })
+axios.interceptors.request.use(config=>{
+    console.log(`${config.method.toUpperCase()} 
+    request sent to ${config.url} at ${new Date().
+        getTime()}`);
+return config;
+},
+error=>{
+    return Promise.reject(error)
+})
 
 
 // AXIOS INSTANCES
-// const axiosInstance=axios.create({
-//     baseURL:'https://jsonplaceholder.typicode.com'
-// })
+const axiosInstance=axios.create({
+    baseURL:'https://jsonplaceholder.typicode.com'
+})
 
 // axiosInstance.get('/comments').then(res=>showOutput(res))
 
@@ -186,14 +186,14 @@ function showOutput(res) {
 }
 
 // Event listeners
-// document.getElementById('get').addEventListener('click', getTodos);
-// document.getElementById('post').addEventListener('click', addTodo);
-// document.getElementById('update').addEventListener('click', updateTodo);
-// document.getElementById('delete').addEventListener('click', removeTodo);
-// document.getElementById('sim').addEventListener('click', getData);
-// document.getElementById('headers').addEventListener('click', customHeaders);
-// document
-//   .getElementById('transform')
-//   .addEventListener('click', transformResponse);
-// document.getElementById('error').addEventListener('click', errorHandling);
-// document.getElementById('cancel').addEventListener('click', cancelToken);
+document.getElementById('get').addEventListener('click', getTodos);
+document.getElementById('post').addEventListener('click', addTodo);
+document.getElementById('update').addEventListener('click', updateTodo);
+document.getElementById('delete').addEventListener('click', removeTodo);
+document.getElementById('sim').addEventListener('click', getData);
+document.getElementById('headers').addEventListener('click', customHeaders);
+document
+  .getElementById('transform')
+  .addEventListener('click', transformResponse);
+document.getElementById('error').addEventListener('click', errorHandling);
+document.getElementById('cancel').addEventListener('click', cancelToken);
