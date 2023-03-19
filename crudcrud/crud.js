@@ -14,18 +14,31 @@ phonenumber
 
 }
 const myObj_serialized=JSON.stringify(myObj);
-axios.post('https://crudcrud.com/api/df19064585b647438d4101634a496a21/appointmentData',myObj)
+axios.post('https://crudcrud.com/api/c4af74c797f94bea840db9dabca87431/appointmentData',myObj)
 .then((resolve)=>console.log(resolve))
 .catch((err)=>console.log(err))
 
-
-//localStorage.setItem('form',myObj_serialized);
 }
 
 function deletefnc(e){
     e.preventDefault()
-    console.log( );
-    axios.delete(`https://crudcrud.com/api/df19064585b647438d4101634a496a21/appointmentData/${e.target.parentElement.id}`)
+    axios.delete(`https://crudcrud.com/api/c4af74c797f94bea840db9dabca87431/appointmentData/${e.target.parentElement.id}`)
+    .then(res=>console.log(res))
+    .catch(err=>console.log(err))
+    e.target.parentElement.remove()
+}
+
+function editfnc(e){
+    e.preventDefault();
+   const name=document.getElementById('name');
+   const email=document.getElementById('email');
+   const phonenumber=document.getElementById('phone')
+   const _id=e.target.parentElement.id;
+   name.value=(e.target.parentElement.children[0].textContent)
+   email.value=JSON.stringify(e.target.parentElement.children[1].textContent)
+   phonenumber.value=e.target.parentElement.children[2].textContent;
+   e.target.parentElement.remove();
+    axios.delete(`https://crudcrud.com/api/c4af74c797f94bea840db9dabca87431/appointmentData/${e.target.parentElement.id}`)
     .then(res=>console.log(res))
     .catch(err=>console.log(err))
     e.target.parentElement.remove()
@@ -37,20 +50,29 @@ function showUserOnScreen(val){
     let li=document.createElement('li');
     li.id=val._id
     let span=document.createElement('span');
-    span.textContent
-    li.textContent=JSON.stringify(val);
+    let span1=document.createElement('span');
+    let span2=document.createElement('span');
+    span.textContent=val.name;
+    li.appendChild(span)
+    span1.textContent=val.email;
+    li.appendChild(span1)
+    span2.textContent=val.phonenumber;
+    li.appendChild(span2)
     let button=document.createElement('button');
+    let button1=document.createElement('button');
     button.textContent='DELETE'
+    button1.textContent='EDIT'
     button.addEventListener('click',deletefnc)
+    button1.addEventListener('click',editfnc)
     li.appendChild(button);
+    li.appendChild(button1);
     ul.appendChild(li);
-    form.appendChild(ul);
-    console.log(val._id);
+    form.appendChild(ul);;
 }
 
 
 window.addEventListener('DOMContentLoaded',()=>{
-    axios.get('https://crudcrud.com/api/df19064585b647438d4101634a496a21/appointmentData')
+    axios.get('https://crudcrud.com/api/c4af74c797f94bea840db9dabca87431/appointmentData')
     .then((resolve)=>{
         console.log(resolve);
         for(let i=0;i<resolve.data.length;i++){
