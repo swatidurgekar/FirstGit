@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candy</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+</head>
+<body>
+    <form id="form">
+        <label for="name">Name</label>
+        <input id="name" type="text"/>
+        <label for="des">Desciption</label>
+        <input id="des" type="text" />
+        <label for="price">Price</label>
+        <input id="price" type="text" />       
+        <label for="qty">Quantity</label>
+        <input id="qty" type="text" />
+        <button id="add">Add item</button>
+    </form>
+    <script>
+        
+        const add = document.getElementById('add');
+function addItem(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const description = document.getElementById('des').value;
+    const price = document.getElementById('price').value;
+    const quantity = document.getElementById('qty').value;
+const obj={
+        name,
+        description,
+        price,
+        quantity 
+}
+    axios.post('https://crudcrud.com/api/d060720fb4a249e3a723bda3e0451f3f/candy',obj)
+    .then((res)=>console.log(res))
+    .catch((err)=>console.log(err))
+}
+
+function showItem(val){
+    const form = document.getElementById('form');
+    const name = val.name;
+    const description = val.description
+    const price = val.price
+    const quantity = val.quantity
+    const ul = document.createElement('ul')
+    const li = document.createElement('li')
+    const span1 = document.createElement('span')
+    span1.textContent = name + ' ';
+    const span2 = document.createElement('span')
+    span2.textContent = description + ' ';
+    const span3 = document.createElement('span')
+    span3.textContent = price + ' ';
+    const span4 = document.createElement('span')
+    span4.textContent = quantity;
+      const btn1 = document.createElement('button')
+    btn1.textContent = 'BUY 1'
+    const btn2 = document.createElement('button')
+    btn2.textContent = 'BUY 2'
+    const btn3 = document.createElement('button')
+    btn3.textContent = 'BUY 3'
+    
+    li.appendChild(span1)
+    li.appendChild(span2)
+    li.appendChild(span3)
+    li.appendChild(span4)
+    li.appendChild(btn1)
+    li.appendChild(btn2)
+    li.appendChild(btn3)
+    ul.appendChild(li)
+    form.appendChild(ul)
+
+
+   function buy1(e){
+    e.preventDefault();
+
+    val.quantity<=0 && console.log('no more items');
+    
+    const obj={
+name:val.name,
+description:val.description,
+price:val.price,
+quantity:val.quantity-1
+    }
+   axios.post('https://crudcrud.com/api/d060720fb4a249e3a723bda3e0451f3f/candy',obj)
+   .then((res)=>console.log(res))
+   .catch(err=>console.log(err))
+   axios.delete(`https://crudcrud.com/api/d060720fb4a249e3a723bda3e0451f3f/candy/${val._id}`)
+   .then((res) => console.log(res))
+    .catch(err => console.log(err))
+}
+
+    function buy2(e) {
+        e.preventDefault()
+        val.quantity <= 0 && console.log('no more items');
+       
+        const obj = {
+            name: val.name,
+            description: val.description,
+            price: val.price,
+            quantity: val.quantity - 2
+        }
+        axios.post('https://crudcrud.com/api/d060720fb4a249e3a723bda3e0451f3f/candy',obj)
+            .then((res) => console.log(res))
+            .catch(err => console.log(err))
+        axios.delete(`https://crudcrud.com/api/d060720fb4a249e3a723bda3e0451f3f/candy/${val._id}`)
+            .then((res) => console.log(res))
+            .catch(err => console.log(err))
+    }
+
+    function buy3(e) {
+        e.preventDefault()
+        val.quantity <= 0 && console.log('no more items');
+      
+        const obj = {
+            name: val.name,
+            description: val.description,
+            price: val.price,
+            quantity: val.quantity - 3
+        }
+        axios.post('https://crudcrud.com/api/d060720fb4a249e3a723bda3e0451f3f/candy', obj)
+            .then((res) => console.log(res))
+            .catch(err => console.log(err))
+        axios.delete(`https://crudcrud.com/api/d060720fb4a249e3a723bda3e0451f3f/candy/${val._id}`)
+            .then((res) => console.log(res))
+            .catch(err => console.log(err))
+    }
+
+btn1.addEventListener('click',buy1);
+btn2.addEventListener('click',buy2);
+btn3.addEventListener('click',buy3);
+}
+function getItem(){
+    axios.get('https://crudcrud.com/api/d060720fb4a249e3a723bda3e0451f3f/candy')
+    .then((res)=>{
+        for(let i=0;i<res.data.length;i++){
+            showItem(res.data[i]);
+        }
+    })
+    .catch(err=>console.log(err))
+}
+        
+        add.addEventListener('click',addItem);
+        window.addEventListener('DOMContentLoaded',getItem)
+    </script>
+</body>
+</html>
