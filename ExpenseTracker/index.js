@@ -10,9 +10,9 @@ function onsignup(event){
 }
 myobj_serialized=JSON.stringify(myobj);
     localStorage.setItem(document.getElementById('amount').value,myobj_serialized);
-    const form=document.getElementById('form')
+    const form=document.getElementById('form');
   const details=document.getElementById('details');
-  const li =document.createElement('li')
+  const li =document.createElement('li');
   
   const span1=document.createElement('span');
   const span2=document.createElement('span');
@@ -20,10 +20,10 @@ myobj_serialized=JSON.stringify(myobj);
   const buttontwo=document.createElement('button')
   const buttonthree=document.createElement('button')
   span1.textContent=document.getElementById('amount').value;
-  span2.textContent=document.getElementById('description').value
-  span3.textContent=document.getElementById('category').value
-  buttontwo.textContent='EDIT'
-  buttonthree.textContent='DELETE'
+  span2.textContent=document.getElementById('description').value;
+  span3.textContent=document.getElementById('category').value;
+  buttontwo.textContent='EDIT';
+  buttonthree.textContent='DELETE';
   li.appendChild(span1)
   li.appendChild(span2)
   li.appendChild(span3)

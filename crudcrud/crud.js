@@ -1,4 +1,4 @@
-
+const url='https://crudcrud.com/api/39c88eaab759472b86d41d7f14af602b/appointmentData'
 const button1=document.getElementById('submit');
 button1.addEventListener('click',submit)
 console.log(button1);
@@ -14,7 +14,7 @@ phonenumber
 
 }
 const myObj_serialized=JSON.stringify(myObj);
-axios.post('https://crudcrud.com/api/c4af74c797f94bea840db9dabca87431/appointmentData',myObj)
+axios.post(url,myObj)
 .then((resolve)=>console.log(resolve))
 .catch((err)=>console.log(err))
 
@@ -22,7 +22,7 @@ axios.post('https://crudcrud.com/api/c4af74c797f94bea840db9dabca87431/appointmen
 
 function deletefnc(e){
     e.preventDefault()
-    axios.delete(`https://crudcrud.com/api/c4af74c797f94bea840db9dabca87431/appointmentData/${e.target.parentElement.id}`)
+    axios.delete(`${url}/${e.target.parentElement.id}`)
     .then(res=>console.log(res))
     .catch(err=>console.log(err))
     e.target.parentElement.remove()
@@ -38,7 +38,7 @@ function editfnc(e){
    email.value=JSON.stringify(e.target.parentElement.children[1].textContent)
    phonenumber.value=e.target.parentElement.children[2].textContent;
    e.target.parentElement.remove();
-    axios.delete(`https://crudcrud.com/api/c4af74c797f94bea840db9dabca87431/appointmentData/${e.target.parentElement.id}`)
+    axios.delete(`${url}/${e.target.parentElement.id}`)
     .then(res=>console.log(res))
     .catch(err=>console.log(err))
     e.target.parentElement.remove()
@@ -72,7 +72,7 @@ function showUserOnScreen(val){
 
 
 window.addEventListener('DOMContentLoaded',()=>{
-    axios.get('https://crudcrud.com/api/c4af74c797f94bea840db9dabca87431/appointmentData')
+    axios.get(url)
     .then((resolve)=>{
         console.log(resolve);
         for(let i=0;i<resolve.data.length;i++){
